@@ -39,6 +39,10 @@ function Feed() {
     return querySnapshot;
   }, []);
 
+  const getName = posts.map((data) => {
+    return data.name;
+  });
+
   // Adding new posts in the Firebae collection using "addDoc" function
   const sendPost = async (e) => {
     e.preventDefault();
@@ -47,7 +51,8 @@ function Feed() {
       description: "This is a test post",
       message: input,
       timeStamp: serverTimestamp(),
-      photoUrl: "",
+      photoUrl:
+        "https://api.dicebear.com/7.x/adventurer/svg?seed=JasSaggu&skinColor=ecad80,f2d3b1",
     });
     setInput("");
   };
@@ -87,7 +92,7 @@ function Feed() {
           name={post.name}
           description={post.description}
           message={post.message}
-          // photoUrl={photoUrl}
+          photoUrl={post.photoUrl}
         />
       ))}
     </div>
