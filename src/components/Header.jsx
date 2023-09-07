@@ -10,8 +10,20 @@ import {
   // Person,
 } from "@mui/icons-material";
 import HeaderOptions from "./HeaderOptions";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../features/userSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebaseFiles/firebase";
 
 function Header() {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const logoutFunc = () => {
+    dispatch(logout);
+    signOut(auth);
+  };
+  
+
   return (
     <div className="header">
       <div className="header__left">
@@ -28,8 +40,9 @@ function Header() {
         <HeaderOptions Icon={Chat} title="Messaging" />
         <HeaderOptions Icon={Notifications} title="Notifications" />
         <HeaderOptions
-          avatar="https://api.dicebear.com/7.x/adventurer/svg?seed=Ginger&skinColor=ecad80,f2d3b1"
-          title="Me"
+          avatar={true}
+          title={user?.displayName}
+          onClick={logoutFunc}
         />
       </div>
     </div>

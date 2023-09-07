@@ -4,7 +4,10 @@ import { Password, Input } from "../Utils/inputs";
 import { Box, Button } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { auth } from "../firebaseFiles/firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../features/userSlice";
 
@@ -12,13 +15,34 @@ function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const [profilePic, setProfilePic] = useState("");
   const dispatch = useDispatch();
 
-  // const loginFunc = (e) => {
-  //   e.preventDefault();
-  //   // auth
-  // };
+  const loginFunc = (e) => {
+    e.preventDefault();
+
+    signInWithEmailAndPassword(auth, email, pass)
+      .then((auth) => {
+        // Signed in
+        const user = auth.user;
+        console.log(user);
+        const sDispatch = () => {
+          dispatch(
+            login({
+              email: user.email,
+              uid: user.uid,
+              displayName: user.displayName,
+              photoUrl: `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.displayName}&skinColor=ecad80,f2d3b1`,
+            })
+          );
+        };
+        sDispatch();
+      })
+      .catch((error) => {
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        alert(error);
+      });
+  };
 
   const register = async () => {
     if (!name) {
@@ -27,27 +51,24 @@ function Login() {
     if (!email) {
       return alert("Please enter Email");
     }
-    setProfilePic(
-      "https://api.dicebear.com/7.x/adventurer/svg?seed=" +
-        name +
-        "&skinColor=ecad80,f2d3b1"
-    );
+    // Try-Catch block to get error message if any error is encountered
     try {
-      await createUserWithEmailAndPassword(auth, email, pass)
-        .then((auth) => {
-          updateProfile(auth, {
-            displayName: name,
-            photoURL: profilePic,
-          }).then(() => {
+      // Creating a new user from email and password using createUserWithEmailAndPassword function imported form Firebase/auth
+      // Required parameters for createUserWithEmailAndPassword(auth -> [exportde from firebase-config], email -> [from input field], password ->[from input field])
+      createUserWithEmailAndPassword(auth, email, pass)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          const rDispatch = () => {
             dispatch(
               login({
-                email: auth.user.email,
-                uid: auth.user.uid,
+                email: user.email,
+                uid: user.uid,
                 displayName: name,
-                photoURL: profilePic,
+                photoUrl: `https://api.dicebear.com/7.x/adventurer/svg?seed=${name}&skinColor=ecad80,f2d3b1`,
               })
             );
-          });
+          };
+          rDispatch();
         })
         .catch((error) => {
           alert(error);
@@ -97,7 +118,7 @@ function Login() {
               backgroundColor: "#006699",
             },
           }}
-          onClick={login}
+          onClick={loginFunc}
         >
           Sign In
         </Button>
