@@ -7,15 +7,14 @@ import Feed from "./components/Feed";
 import { login, logout, selectUser } from "./features/userSlice";
 import Login from "./components/Login";
 import { auth } from "./firebaseFiles/firebase";
-import { updateCurrentUser } from "firebase/auth";
+import Widgets from "./components/Widgets";
 
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    auth.onAuthStateChanged((auth) => {
-      const user = auth.currentUser;
+    auth.onAuthStateChanged((user) => {
       if (user != null) {
         // User is logged in
         dispatch(
@@ -43,7 +42,7 @@ function App() {
         <div className="app__body">
           <Sidebar />
           <Feed />
-          {/* Widgets */}
+          <Widgets />
         </div>
       )}
     </div>

@@ -7,6 +7,7 @@ import { auth } from "../firebaseFiles/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../features/userSlice";
@@ -24,7 +25,6 @@ function Login() {
       .then((auth) => {
         // Signed in
         const user = auth.user;
-        console.log(user);
         const sDispatch = () => {
           dispatch(
             login({
@@ -58,7 +58,11 @@ function Login() {
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
           const user = userCredential.user;
-          const rDispatch = () => {
+          // Used UpdateProfile function form Firebase/auth to update username and profile image                    !!Very Important
+          updateProfile(user, {
+            displayName: name,
+            photoURL: `https://api.dicebear.com/7.x/adventurer/svg?seed=${name}&skinColor=ecad80,f2d3b1`,
+          }).then(() => {
             dispatch(
               login({
                 email: user.email,
@@ -67,8 +71,7 @@ function Login() {
                 photoUrl: `https://api.dicebear.com/7.x/adventurer/svg?seed=${name}&skinColor=ecad80,f2d3b1`,
               })
             );
-          };
-          rDispatch();
+          });
         })
         .catch((error) => {
           alert(error);
