@@ -7,13 +7,13 @@ import {
   BusinessCenter,
   Chat,
   Notifications,
-  // Person,
 } from "@mui/icons-material";
 import HeaderOptions from "./HeaderOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/userSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebaseFiles/firebase";
+import { Button, Typography } from "@mui/material";
 
 function Header() {
   const user = useSelector(selectUser);
@@ -22,7 +22,6 @@ function Header() {
     dispatch(logout);
     signOut(auth);
   };
-  
 
   return (
     <div className="header">
@@ -39,11 +38,21 @@ function Header() {
         <HeaderOptions Icon={BusinessCenter} title="Jobs" />
         <HeaderOptions Icon={Chat} title="Messaging" />
         <HeaderOptions Icon={Notifications} title="Notifications" />
-        <HeaderOptions
-          avatar={true}
-          title={user?.displayName}
-          onClick={logoutFunc}
-        />
+        {user ? (
+          <HeaderOptions
+            avatar="true"
+            title={user?.displayName}
+            onClick={logoutFunc}
+          />
+        ) : (
+          <Button
+            variant="outlined"
+            sx={{ borderRadius: 5 }}
+            // onClick={loginFunc}
+          >
+            Sign In
+          </Button>
+        )}
       </div>
     </div>
   );

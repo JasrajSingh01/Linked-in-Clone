@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import Header from "./components/Header";
@@ -10,7 +10,11 @@ import { auth } from "./firebaseFiles/firebase";
 import Widgets from "./components/Widgets";
 
 function App() {
+  // Loading
+  const [loading, setLoading] = useState(false);
+  //User Selector
   const user = useSelector(selectUser);
+  //Dispatcher
   const dispatch = useDispatch();
 
   useEffect(() => {

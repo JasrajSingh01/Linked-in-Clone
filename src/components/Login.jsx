@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/login.css";
 import { Password, Input } from "../Utils/inputs";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { auth } from "../firebaseFiles/firebase";
 import {
@@ -10,12 +10,17 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
+import Loading from "../components/Loading";
 import { login } from "../features/userSlice";
 
 function Login() {
+  // TextField States
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  // Loading
+  // const [loading, setLoading] = useState(false);
+  //Dispatcher
   const dispatch = useDispatch();
 
   const loginFunc = (e) => {
@@ -123,13 +128,13 @@ function Login() {
           }}
           onClick={loginFunc}
         >
-          Sign In
+          Sign Up
         </Button>
       </Box>
       <p>
-        Not a member?{" "}
+        Already a member?{" "}
         <span className="login__register" onClick={register}>
-          Register Now
+          Sign In
         </span>
       </p>
     </div>

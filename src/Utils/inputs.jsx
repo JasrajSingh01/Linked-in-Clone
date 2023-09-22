@@ -22,6 +22,25 @@ export function Input(props) {
   );
 }
 
+export function Caption(props) {
+  return (
+    <Box
+      sx={{
+        "& > :not(style)": { mb: 2 },
+      }}
+    >
+      <TextField
+        variant="standard"
+        margin="dense"
+        label={props.label}
+        autoFocus
+        fullWidth
+        {...props}
+      />
+    </Box>
+  );
+}
+
 export function Password(props) {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -55,4 +74,3 @@ export function Password(props) {
     </FormControl>
   );
 }
-

@@ -22,11 +22,11 @@ function Widgets() {
         <h2>LinkedIn News</h2>
         <Info />
       </div>
-      {newsArticle("Tesla Motors is here!!", "Top news - 9909 readers")}
-      {newsArticle("Tesla Motors is here!!", "Top news - 896 readers")}
+      {newsArticle("Rockstar Games Hiring!!", "Top news - 9909 readers")}
+      {newsArticle("Google Hiring Soon!!", "Top news - 896 readers")}
       {newsArticle("Tesla Motors is here!!", "Cars & auto - 1235 readers")}
-      {newsArticle("Tesla Motors is here!!", "Crypto - 8000 readers")}
-      {newsArticle("Tesla Motors is here!!", "Code - 9999 readers")}
+      {newsArticle("Time to buy Bitcoin!!", "Crypto - 8087 readers")}
+      {newsArticle("Self learning??", "Code - 9789 readers")}
       {newsArticle("GNE Addmissions started!!", "College - 548 readers")}
     </div>
   );
