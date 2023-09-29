@@ -12,7 +12,6 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
 import FlipMove from "react-flip-move";
@@ -29,6 +28,7 @@ function Feed() {
   const [open, setOpen] = useState(false);
   const close = () => {
     setOpen(false);
+    // setCaption("");
   };
 
   // Connection with firebase collection (DB)
@@ -115,7 +115,7 @@ function Feed() {
           ))}
         </FlipMove>
       </div>
-      <Dialog open={open} close={close} />
+      <Dialog open={open} close={close} setOpen={setOpen} />
     </>
   );
 }

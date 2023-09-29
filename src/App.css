@@ -1,15 +1,24 @@
 .app {
   background-color: #f3f2ef;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  height: auto;
 }
 
 .app__body {
   display: flex;
+  justify-content: center;
   width: 70%;
   margin-top: 35px;
   max-width: 1200px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
 }

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
-import Feed from "./components/Feed";
+import Home from "./components/Home";
 import { login, logout, selectUser } from "./features/userSlice";
-import Login from "./components/Login";
+import Register from "./components/Register";
 import { auth } from "./firebaseFiles/firebase";
-import Widgets from "./components/Widgets";
+import { BarLoader } from "react-spinners";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 function App() {
   // Loading
@@ -16,8 +16,15 @@ function App() {
   const user = useSelector(selectUser);
   //Dispatcher
   const dispatch = useDispatch();
+  // Navigator
+  const Navigate = useNavigate();
 
+  // UseEffect for loading
   useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
     auth.onAuthStateChanged((user) => {
       if (user != null) {
         // User is logged in
@@ -29,27 +36,40 @@ function App() {
             photoUrl: user.photoURL,
           })
         );
+        Navigate("/");
       } else {
         // User is logged out
         dispatch(logout());
+        Navigate("/register");
       }
     });
     // console.log(user);
   }, []);
 
   return (
-    <div className="app">
-      <Header />
-      {!user ? (
-        <Login />
-      ) : (
-        <div className="app__body">
-          <Sidebar />
-          <Feed />
-          <Widgets />
-        </div>
-      )}
-    </div>
+    <>
+      <div className="app">
+        {loading ? (
+          <div className="loader">
+            <BarLoader loading={loading} color="#0288d1" size={30} />
+          </div>
+        ) : (
+          <div>
+            <Header />
+            {!user && (
+              <Routes>
+                <Route path="/register" element={<Register />} />
+              </Routes>
+            )}
+            {user && (
+              <Routes>
+                <Route path="/" element={<Home />} />
+              </Routes>
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

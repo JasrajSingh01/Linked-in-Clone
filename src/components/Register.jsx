@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import "../css/login.css";
+import React, { useEffect, useState } from "react";
+import "../css/register.css";
+import Home from "./Home";
 import { Password, Input } from "../Utils/inputs";
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { auth } from "../firebaseFiles/firebase";
 import {
@@ -10,43 +11,60 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import Loading from "../components/Loading";
 import { login } from "../features/userSlice";
+import { BarLoader } from "react-spinners";
+import { Route, Routes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   // TextField States
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const Navigate = useNavigate();
+
   // Loading
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  // UseEffect for loading
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   //Dispatcher
   const dispatch = useDispatch();
 
   const loginFunc = (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, pass)
-      .then((auth) => {
-        // Signed in
-        const user = auth.user;
-        const sDispatch = () => {
-          dispatch(
-            login({
-              email: user.email,
-              uid: user.uid,
-              displayName: user.displayName,
-              photoUrl: `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.displayName}&skinColor=ecad80,f2d3b1`,
-            })
-          );
-        };
-        sDispatch();
-      })
-      .catch((error) => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        alert(error);
-      });
+    try {
+      signInWithEmailAndPassword(auth, email, pass)
+        .then((auth) => {
+          // Signed in
+          const user = auth.user;
+          const sDispatch = () => {
+            dispatch(
+              login({
+                email: user.email,
+                uid: user.uid,
+                displayName: user.displayName,
+                photoUrl: `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.displayName}&skinColor=ecad80,f2d3b1`,
+              })
+            );
+          };
+          sDispatch();
+          Navigate("/");
+        })
+        .catch((error) => {
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+          alert(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const register = async () => {
@@ -63,7 +81,9 @@ function Login() {
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
           const user = userCredential.user;
-          // Used UpdateProfile function form Firebase/auth to update username and profile image                    !!Very Important
+
+          // !!Very Important
+          // Used UpdateProfile function form Firebase/auth to update username and profile image
           updateProfile(user, {
             displayName: name,
             photoURL: `https://api.dicebear.com/7.x/adventurer/svg?seed=${name}&skinColor=ecad80,f2d3b1`,
@@ -82,8 +102,9 @@ function Login() {
           alert(error);
         });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
+    Navigate("/");
   };
 
   return (
