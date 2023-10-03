@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
 import FlipMove from "react-flip-move";
 import Dialog from "./Dialog";
+import moment from "moment/moment";
 
 function Feed() {
   // User Selector
@@ -104,13 +105,14 @@ function Feed() {
 
         {/* Posts */}
         <FlipMove>
-          {posts.map((post) => (
+          {posts.map(({ id, timeStamp, name, message, photoUrl, image }) => (
             <Post
-              key={post.id}
-              name={post.name}
-              description={post.description}
-              message={post.message}
-              photoUrl={post.photoUrl}
+              key={id}
+              name={name}
+              image={image}
+              description={moment(timeStamp?.toDate().toString()).calendar()}
+              message={message}
+              photoUrl={photoUrl}
             />
           ))}
         </FlipMove>

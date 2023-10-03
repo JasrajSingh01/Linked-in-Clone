@@ -20,14 +20,25 @@
 }
 
 .post__info > h2 {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .post__body {
-    overflow-wrap: anywhere;
+  overflow-wrap: anywhere;
+  margin-bottom: 10px;
 }
 
 .post__buttons {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.post__img {
+  display: flex;
+  flex: 1;
+}
+
+.post__img > img {
+  object-fit: contain;
+  width: 100%;
 }

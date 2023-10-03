@@ -76,22 +76,22 @@ export default function FormDialog({ open, setOpen }) {
           });
         })
       );
+      setOpen(false);
       setCaption("");
       setCaptionErr(false);
       setFiles([]);
-      setOpen(false);
     }
   };
 
   const closeDialog = () => {
     setOpen(false);
+    setFiles([]);
     setCaption("");
     setCaptionErr(false);
-    setFiles([]);
   };
 
   return (
-    <div>
+    <>
       <Dialog open={open} onClose={closeDialog} fullWidth maxWidth="md">
         <DialogTitle>
           <Typography variant="h6" component="div">
@@ -121,6 +121,6 @@ export default function FormDialog({ open, setOpen }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }

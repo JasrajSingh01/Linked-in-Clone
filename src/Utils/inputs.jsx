@@ -25,9 +25,9 @@ export function Input(props) {
 export function Caption(props) {
   return (
     <Box
-    // sx={{
-    //   "& > :not(style)": { mb: 1 },
-    // }}
+    sx={{
+      "& > :not(style)": { mb: 2 },
+    }}
     >
       <TextField
         variant="standard"

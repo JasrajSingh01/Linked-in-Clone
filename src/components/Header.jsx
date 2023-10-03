@@ -9,13 +9,13 @@ import {
   Notifications,
 } from "@mui/icons-material";
 import HeaderOptions from "./HeaderOptions";
-import Register from "./Register";
+// import Register from "./Register";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/userSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebaseFiles/firebase";
-import { Button, Typography } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
+import { Button } from "@mui/material";
+// import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Header() {

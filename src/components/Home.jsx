@@ -5,7 +5,7 @@ import Widgets from "./Widgets";
 import "../App.css";
 import { useState } from "react";
 import { useEffect } from "react";
-import { BarLoader } from "react-spinners";
+// import { BarLoader } from "react-spinners";
 
 function AppBody() {
   const [loading, setLoading] = useState(false);

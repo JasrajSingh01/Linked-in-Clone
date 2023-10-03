@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../css/register.css";
-import Home from "./Home";
+// import Home from "./Home";
 import { Password, Input } from "../Utils/inputs";
 import { Box, Button } from "@mui/material";
 import { Send } from "@mui/icons-material";
@@ -12,8 +12,8 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../features/userSlice";
-import { BarLoader } from "react-spinners";
-import { Route, Routes } from "react-router-dom";
+// import { BarLoader } from "react-spinners";
+// import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -24,14 +24,14 @@ function Login() {
   const Navigate = useNavigate();
 
   // Loading
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   // UseEffect for loading
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  // }, []);
 
   //Dispatcher
   const dispatch = useDispatch();
