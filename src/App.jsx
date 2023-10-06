@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import { auth } from "./firebaseFiles/firebase";
 import { BarLoader } from "react-spinners";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import SignIn from "./components/SignIn";
 
 function App() {
   // Loading
@@ -56,16 +57,21 @@ function App() {
         ) : (
           <div>
             <Header />
-            {!user && (
+            {!user ? (
               <Routes>
                 <Route path="/register" element={<Register />} />
+                <Route path="/signIn" element={<SignIn />} />
               </Routes>
-            )}
-            {user && (
+            ) : (
               <Routes>
                 <Route path="/" element={<Home />} />
               </Routes>
             )}
+            {/* {user && (
+              <Routes>
+                <Route path="/" element={<Home />} />
+              </Routes>
+            )} */}
           </div>
         )}
       </div>

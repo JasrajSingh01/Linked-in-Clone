@@ -15,6 +15,7 @@ import { login } from "../features/userSlice";
 // import { BarLoader } from "react-spinners";
 // import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Loading from "react-loading";
 
 function Login() {
   // TextField States
@@ -24,7 +25,8 @@ function Login() {
   const Navigate = useNavigate();
 
   // Loading
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
   // UseEffect for loading
   // useEffect(() => {
   //   setLoading(true);
@@ -104,61 +106,71 @@ function Login() {
     } catch (error) {
       // console.log(error);
     }
-    Navigate("/");
+    {
+      loading && Navigate("/");
+    }
   };
 
   return (
-    <div className="login">
-      <img src="/linked-in.svg" alt="Linked-in" />
-      <form action="">
-        <Input
-          label="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <Input
-          label="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Password
-          label="Password"
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
-          required
-        />
-      </form>
-      <Box
-        alignSelf="center"
-        justifyContent="center"
-        justifySelf="center"
-        mt={2}
-      >
-        <Button
-          variant="contained"
-          endIcon={<Send />}
-          size="large"
-          type="submit"
-          sx={{
-            backgroundColor: "#0288D1",
-            "&:hover": {
-              backgroundColor: "#006699",
-            },
-          }}
-          onClick={loginFunc}
+    <>
+      <div className="login">
+        <img src="/linked-in.svg" alt="Linked-in" />
+        <form action="">
+          <Input
+            label="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <Input
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <Password
+            label="Password"
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+            required
+          />
+        </form>
+        <Box
+          alignSelf="center"
+          justifyContent="center"
+          justifySelf="center"
+          mt={2}
         >
-          Sign Up
-        </Button>
-      </Box>
-      <p>
-        Already a member?{" "}
-        <span className="login__register" onClick={register}>
-          Sign In
-        </span>
-      </p>
-    </div>
+          <Button
+            variant="contained"
+            endIcon={<Send />}
+            size="large"
+            type="submit"
+            sx={{
+              backgroundColor: "#0288D1",
+              "&:hover": {
+                backgroundColor: "#006699",
+              },
+            }}
+            onClick={register}
+          >
+            Sign Up
+          </Button>
+        </Box>
+        <p>
+          Already a member?{" "}
+          <span
+            className="login__register"
+            onClick={() => {
+              Navigate("/SignIn");
+            }}
+            // onClick={register}
+          >
+            Sign In
+          </span>
+        </p>
+      </div>
+    </>
   );
 }
 

@@ -38,7 +38,11 @@ function Header() {
     dispatch(logout);
     signOut(auth);
     setLoading(false);
-    navigate("/");
+    navigate("/signIn");
+  }
+
+  function loginFunc() {
+    navigate("/signIn");
   }
 
   return (
@@ -66,7 +70,7 @@ function Header() {
           <Button
             variant="outlined"
             sx={{ borderRadius: 5 }}
-            // onClick={loginFunc}
+            onClick={loginFunc}
           >
             Sign In
           </Button>
