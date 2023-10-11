@@ -42,3 +42,8 @@
   object-fit: contain;
   width: 100%;
 }
+
+.img__skeleton {
+  padding-top: 5px;
+  padding-bottom: 10px;
+}

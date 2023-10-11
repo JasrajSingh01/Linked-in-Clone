@@ -1,24 +1,27 @@
-import { React, useEffect, useState } from "react";
 import { CalendarViewDay, Create, EventNote, Image } from "@mui/icons-material";
-import InputOptions from "./InputOptions";
-import "../css/feed.css";
-import Post from "./Post";
-import { db } from "../firebaseFiles/firebase";
 import {
-  serverTimestamp,
-  collection,
   addDoc,
+  collection,
   onSnapshot,
   orderBy,
   query,
+  serverTimestamp,
 } from "firebase/firestore";
-import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
-import FlipMove from "react-flip-move";
-import Dialog from "./Dialog";
 import moment from "moment/moment";
+import { React, useEffect, useState } from "react";
+import FlipMove from "react-flip-move";
+import { useSelector } from "react-redux";
+import "../css/feed.css";
+import { selectUser } from "../features/userSlice";
+import { db } from "../firebaseFiles/firebase";
+import Dialog from "./Dialog";
+import InputOptions from "./InputOptions";
+import Post from "./Post";
+import PostSkeleton from "./PostSkeleton";
 
 function Feed() {
+  // Loading State
+  const [isLoading, setIsLoading] = useState(true);
   // User Selector
   const user = useSelector(selectUser);
   // Post Input
@@ -40,11 +43,14 @@ function Feed() {
     const q = query(postsCollection, orderBy("timeStamp", "desc"));
 
     const querySnapshot = onSnapshot(q, (snapshot) => {
-      const posts = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPosts(posts);
+      setTimeout(() => {
+        const posts = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPosts(posts);
+        setIsLoading(false);
+      }, 2000);
     });
 
     return querySnapshot;
@@ -104,18 +110,27 @@ function Feed() {
         </div>
 
         {/* Posts */}
-        <FlipMove>
-          {posts.map(({ id, timeStamp, name, message, photoUrl, image }) => (
-            <Post
-              key={id}
-              name={name}
-              image={image}
-              description={moment(timeStamp?.toDate().toString()).calendar()}
-              message={message}
-              photoUrl={photoUrl}
-            />
-          ))}
-        </FlipMove>
+        {/* <PostSkeleton posts={1} id={posts.map(({ id }) => id)} /> */}
+        {!posts.length && isLoading ? (
+          <PostSkeleton posts={4} id={posts.map(({ id }) => id)} />
+        ) : (
+          <FlipMove>
+            {posts.map(({ id, timeStamp, name, message, photoUrl, image }) => (
+              <>
+                <Post
+                  id={id}
+                  name={name}
+                  image={image}
+                  description={moment(
+                    timeStamp?.toDate().toString()
+                  ).calendar()}
+                  message={message}
+                  photoUrl={photoUrl}
+                />
+              </>
+            ))}
+          </FlipMove>
+        )}
       </div>
       <Dialog open={open} close={close} setOpen={setOpen} />
     </>

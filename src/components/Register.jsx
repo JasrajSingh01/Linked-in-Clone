@@ -1,81 +1,38 @@
-import React, { useState } from "react";
-import "../css/register.css";
-// import Home from "./Home";
-import { Password, Input } from "../Utils/inputs";
 import { Box, Button } from "@mui/material";
-import { Send } from "@mui/icons-material";
-import { auth } from "../firebaseFiles/firebase";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../features/userSlice";
-// import { BarLoader } from "react-spinners";
-// import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Loading from "react-loading";
+import { BarLoader } from "react-spinners";
+import { Input, Password } from "../Utils/inputs";
+import "../css/register.css";
+import { login } from "../features/userSlice";
+import { auth } from "../firebaseFiles/firebase";
 
 function Login() {
   // TextField States
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+
+  // Navigation State
   const Navigate = useNavigate();
 
   // Loading
   const [loading, setLoading] = useState(false);
-  
-  // UseEffect for loading
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000);
-  // }, []);
 
   //Dispatcher
   const dispatch = useDispatch();
 
-  const loginFunc = (e) => {
+  const register = async (e) => {
     e.preventDefault();
-
-    try {
-      signInWithEmailAndPassword(auth, email, pass)
-        .then((auth) => {
-          // Signed in
-          const user = auth.user;
-          const sDispatch = () => {
-            dispatch(
-              login({
-                email: user.email,
-                uid: user.uid,
-                displayName: user.displayName,
-                photoUrl: `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.displayName}&skinColor=ecad80,f2d3b1`,
-              })
-            );
-          };
-          sDispatch();
-          Navigate("/");
-        })
-        .catch((error) => {
-          // const errorCode = error.code;
-          // const errorMessage = error.message;
-          alert(error);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const register = async () => {
     if (!name) {
       return alert("Please enter Name");
     }
     if (!email) {
       return alert("Please enter Email");
     }
+    setLoading(true);
     // Try-Catch block to get error message if any error is encountered
     try {
       // Creating a new user from email and password using createUserWithEmailAndPassword function imported form Firebase/auth
@@ -103,73 +60,105 @@ function Login() {
         .catch((error) => {
           alert(error);
         });
+      Navigate("/");
     } catch (error) {
       // console.log(error);
     }
-    {
-      loading && Navigate("/");
-    }
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
 
   return (
     <>
-      <div className="login">
-        <img src="/linked-in.svg" alt="Linked-in" />
-        <form action="">
-          <Input
-            label="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <Input
-            label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <Password
-            label="Password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            required
-          />
-        </form>
-        <Box
-          alignSelf="center"
-          justifyContent="center"
-          justifySelf="center"
-          mt={2}
-        >
-          <Button
-            variant="contained"
-            endIcon={<Send />}
-            size="large"
-            type="submit"
+      {loading ? (
+        <BarLoader loading={loading} color="#0288d1" size={30} />
+      ) : (
+        <div className="login">
+          <img src="/linked-in.svg" alt="Linked-in" />
+          <form action="">
+            <Input
+              label="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <Input
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Password
+              label="Password"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              required
+            />
+          </form>
+          {/* <Box
+            alignSelf="center"
+            justifyContent="center"
+            justifySelf="center"
+            mt={2}
+          >
+            <Button
+              variant="contained"
+              endIcon={<Send />}
+              size="large"
+              type="submit"
+              sx={{
+                backgroundColor: "#0288D1",
+                "&:hover": {
+                  backgroundColor: "#006699",
+                },
+              }}
+              onClick={register}
+            >
+              
+            </Button>
+          </Box> */}
+          <Box
+            alignSelf="center"
+            justifyContent="center"
+            justifySelf="center"
+            mt={2}
             sx={{
-              backgroundColor: "#0288D1",
-              "&:hover": {
-                backgroundColor: "#006699",
-              },
+              width: "100%",
+              textTransform: "initial",
             }}
-            onClick={register}
           >
-            Sign Up
-          </Button>
-        </Box>
-        <p>
-          Already a member?{" "}
-          <span
-            className="login__register"
-            onClick={() => {
-              Navigate("/SignIn");
-            }}
-            // onClick={register}
-          >
-            Sign In
-          </span>
-        </p>
-      </div>
+            <Button
+              variant="contained"
+              size="large"
+              fullWidth
+              type="submit"
+              sx={{
+                borderRadius: "20px",
+                backgroundColor: "#0a66c2",
+                "&:hover": {
+                  backgroundColor: "#095096",
+                },
+              }}
+              onClick={register}
+            >
+              Sign Up
+            </Button>
+          </Box>
+          <p>
+            Already a member?{" "}
+            <span
+              className="login__register"
+              onClick={() => {
+                Navigate("/SignIn");
+              }}
+              // onClick={register}
+            >
+              Sign In
+            </span>
+          </p>
+        </div>
+      )}
     </>
   );
 }

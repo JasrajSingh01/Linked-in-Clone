@@ -1,5 +1,6 @@
 .login {
   display: flex;
+  width: 344px;
   flex-direction: column;
   place-items: center;
   margin-left: auto;
@@ -22,4 +23,8 @@
 
 .login > p {
   margin-top: 20px;
+}
+
+.MuiButton-root{ 
+  text-transform: none !important;
 }

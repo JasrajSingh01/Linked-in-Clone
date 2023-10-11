@@ -1,3 +1,20 @@
+.app {
+  background-color: #f3f2ef;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+}
+
+.app__body {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  margin-top: 35px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .loader {
   display: flex;
   justify-content: center;

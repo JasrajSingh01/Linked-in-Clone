@@ -1,48 +1,37 @@
-import { React, useEffect, useState } from "react";
-import "../css/header.css";
 import {
-  Search,
-  Home,
-  SupervisorAccount,
   BusinessCenter,
   Chat,
+  Home,
   Notifications,
+  Search,
+  SupervisorAccount,
 } from "@mui/icons-material";
+import { React } from "react";
+import "../css/header.css";
 import HeaderOptions from "./HeaderOptions";
-// import Register from "./Register";
+import { Button } from "@mui/material";
+import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/userSlice";
-import { signOut } from "firebase/auth";
 import { auth } from "../firebaseFiles/firebase";
-import { Button } from "@mui/material";
 // import { Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  // Loading
-  const [loading, setLoading] = useState(false);
-  // UseEffect for loading
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
+  // Navigation State
+  const Navigate = useNavigate();
 
   function logoutFunc() {
-    setLoading(true);
     dispatch(logout);
     signOut(auth);
-    setLoading(false);
-    navigate("/signIn");
+    Navigate("/signIn");
   }
 
   function loginFunc() {
-    navigate("/signIn");
+    Navigate("/signIn");
   }
 
   return (
