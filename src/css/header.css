@@ -5,7 +5,7 @@
   justify-content: space-evenly;
   background-color: white;
   border-bottom: 0.1px solid lightgrey;
-  padding: 10px 0;
+  padding: 5px 0;
   width: 100%;
   z-index: 999;
 }
@@ -18,7 +18,7 @@
 .header__left > img {
   object-fit: contain;
   height: 50px;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 .header__search {
@@ -34,6 +34,7 @@
 .header__search > input {
   outline: none;
   border: none;
+  width: 300px;
   background: none;
 }
 

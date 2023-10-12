@@ -26,7 +26,7 @@ const Post = forwardRef(
             <p>{message}</p>
           </div>
           <div className="post__img">
-            {image && <img src={image} alt="img" />}
+            {image && <img src={image} loading="lazy" alt="img" />}
           </div>
 
           <div className="post__buttons">

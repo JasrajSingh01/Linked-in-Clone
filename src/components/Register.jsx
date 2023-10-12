@@ -19,7 +19,7 @@ function Login() {
   const Navigate = useNavigate();
 
   // Loading
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   //Dispatcher
   const dispatch = useDispatch();
@@ -32,7 +32,6 @@ function Login() {
     if (!email) {
       return alert("Please enter Email");
     }
-    setLoading(true);
     // Try-Catch block to get error message if any error is encountered
     try {
       // Creating a new user from email and password using createUserWithEmailAndPassword function imported form Firebase/auth
@@ -40,7 +39,6 @@ function Login() {
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
           const user = userCredential.user;
-
           // !!Very Important
           // Used UpdateProfile function form Firebase/auth to update username and profile image
           updateProfile(user, {
@@ -64,9 +62,9 @@ function Login() {
     } catch (error) {
       // console.log(error);
     }
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    // setTimeout(() => {
+    setLoading(false);
+    // }, 2000);
   };
 
   return (

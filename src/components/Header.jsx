@@ -39,7 +39,7 @@ function Header() {
       <div className="header__left">
         <img src="/Linkedin-Logo.svg" alt="Logo" />
         <div className="header__search">
-          <Search />
+          <Search sx={{color: "#000"}}/>
           <input type="text" placeholder="Search"></input>
         </div>
       </div>
