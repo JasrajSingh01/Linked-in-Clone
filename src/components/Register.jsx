@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BarLoader } from "react-spinners";
@@ -66,6 +66,10 @@ function Login() {
     setLoading(false);
     // }, 2000);
   };
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   return (
     <>

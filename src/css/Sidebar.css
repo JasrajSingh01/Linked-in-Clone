@@ -5,7 +5,6 @@
   border-radius: 10px;
   text-align: center;
   height: fit-content;
-  /* border: 1px solid black; */
 }
 
 .sidebar__avatar {
@@ -43,6 +42,11 @@
   object-fit: cover;
 }
 
+.sidebar__personal {
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+}
+
 .sidebar__stat {
   margin-top: 10px;
   display: flex;
@@ -76,32 +80,33 @@
   background-color: white;
   border-radius: 10px;
   margin-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
 }
 
 .sidebar__bottom > p {
-    font-size: 13px;
-    padding-bottom: 10px;
+  font-size: 13px;
+  padding-bottom: 10px;
 }
 
 .sidebar__recentItem {
-    display: flex;
-    font-size: 13px;
-    color: grey;
-    cursor: pointer;
-    font-weight: bolder;
-    padding: 5px;
-    margin-bottom: 5px;
-    /* border-radius: 1px solid black; */
+  display: flex;
+  font-size: 13px;
+  color: grey;
+  cursor: pointer;
+  font-weight: bolder;
+  padding: 5px;
+  margin-bottom: 5px;
+  /* border-radius: 1px solid black; */
 }
 
 .sidebar__recentItem:hover {
-    background-color: whitesmoke;
-    border-radius: 10px;
-    cursor: pointer;
-    color: black;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  cursor: pointer;
+  color: black;
 }
 
 .sidebar__hash {
-    margin-right: 10px;
-    margin-left: 5px;
+  margin-right: 10px;
+  margin-left: 5px;
 }

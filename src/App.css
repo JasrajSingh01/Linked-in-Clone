@@ -11,8 +11,8 @@
   width: 70%;
   margin-top: 35px;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  /* margin-right: auto; */
 }
 
 .loader {
@@ -21,4 +21,10 @@
   align-items: center;
   height: 100vh;
   width: 100%;
+}
+
+@media (max-width: 1150px) {
+  .app__body {
+    width: 98%;
+  }
 }

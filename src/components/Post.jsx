@@ -4,13 +4,19 @@ import {
   ShareOutlined,
   ThumbUpAltOutlined,
 } from "@mui/icons-material";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Avatar } from "@mui/material";
 import { React, forwardRef } from "react";
 import "../css/post.css";
 import InputOptions from "./InputOptions";
+import { useState } from "react";
 
 const Post = forwardRef(
   ({ id, name, description, message, photoUrl, image }, ref) => {
+    const [like, setLike] = useState(false);
+    const likeBtn = () => {
+      setLike(!like);
+    };
     return (
       <>
         <div ref={ref} key={id} className="post">
@@ -30,7 +36,21 @@ const Post = forwardRef(
           </div>
 
           <div className="post__buttons">
-            <InputOptions Icon={ThumbUpAltOutlined} title="Like" color="grey" />
+            {like ? (
+              <InputOptions
+                Icon={ThumbUpIcon}
+                onClick={likeBtn}
+                title="Like"
+                color="#24a0ed"
+              />
+            ) : (
+              <InputOptions
+                Icon={ThumbUpAltOutlined}
+                onClick={likeBtn}
+                title="Like"
+                color="grey"
+              />
+            )}
             <InputOptions Icon={ChatOutlined} title="Comment" color="grey" />
             <InputOptions Icon={ShareOutlined} title="Share" color="grey" />
             <InputOptions Icon={SendOutlined} title="Send" color="grey" />
