@@ -22,3 +22,19 @@
   height: 100vh;
   width: 100%;
 }
+
+@media (max-width: 1200px) {
+  .app__body {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 850px) {
+  .app__body {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

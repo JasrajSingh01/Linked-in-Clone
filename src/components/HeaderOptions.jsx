@@ -15,7 +15,7 @@ function HeaderOptions({ avatar, Icon, title, onClick }) {
           {user?.email[0]}
         </Avatar>
       )}
-      <h3 className="headerOption__title">{title}</h3>
+      {title && <h3 className="headerOption__title">{title}</h3>}
     </div>
   );
 }

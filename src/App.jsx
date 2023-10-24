@@ -41,7 +41,7 @@ function App() {
       } else {
         // User is logged out
         dispatch(logout());
-        Navigate("/register");
+        Navigate("/signIn");
       }
     });
     // console.log(user);

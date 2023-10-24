@@ -1,6 +1,6 @@
 .login {
   display: flex;
-  width: 344px;
+  width: fit-content;
   flex-direction: column;
   place-items: center;
   margin-left: auto;

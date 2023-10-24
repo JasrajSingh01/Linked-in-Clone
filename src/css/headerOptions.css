@@ -25,3 +25,14 @@
   font-size: 12px;
   font-weight: 400;
 }
+
+@media (max-width: 850px) {
+  .headerOption__icon {
+    padding: 0 10px;
+    display: flex;
+  }
+
+  .headerOption__title {
+    display: none;
+  }
+}

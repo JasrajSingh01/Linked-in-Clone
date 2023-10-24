@@ -5,6 +5,7 @@ import {
   Notifications,
   Search,
   SupervisorAccount,
+  Menu
 } from "@mui/icons-material";
 import { React } from "react";
 import "../css/header.css";
@@ -39,7 +40,7 @@ function Header() {
       <div className="header__left">
         <img src="/Linkedin-Logo.svg" alt="Logo" />
         <div className="header__search">
-          <Search sx={{color: "#000"}}/>
+          <Search sx={{ color: "#000" }} />
           <input type="text" placeholder="Search"></input>
         </div>
       </div>
@@ -64,6 +65,9 @@ function Header() {
             Sign In
           </Button>
         )}
+      </div>
+      <div className="header__hamburger">
+        <HeaderOptions Icon={Menu} />
       </div>
     </div>
   );
