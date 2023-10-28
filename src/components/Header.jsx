@@ -5,31 +5,22 @@ import {
   Notifications,
   Search,
   SupervisorAccount,
-  Menu
 } from "@mui/icons-material";
-import { React } from "react";
-import "../css/header.css";
-import HeaderOptions from "./HeaderOptions";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
-import { signOut } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUser } from "../features/userSlice";
-import { auth } from "../firebaseFiles/firebase";
-// import { Route, Routes } from "react-router-dom";
+import { React } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "../css/header.css";
+import { selectUser } from "../features/userSlice";
+import HeaderOptions from "./HeaderOptions";
+import Menu from "./Menu";
 
 function Header() {
   const user = useSelector(selectUser);
-  const dispatch = useDispatch();
 
   // Navigation State
   const Navigate = useNavigate();
-
-  function logoutFunc() {
-    dispatch(logout);
-    signOut(auth);
-    Navigate("/signIn");
-  }
 
   function loginFunc() {
     Navigate("/signIn");
@@ -51,11 +42,11 @@ function Header() {
         <HeaderOptions Icon={Chat} title="Messaging" />
         <HeaderOptions Icon={Notifications} title="Notifications" />
         {user ? (
-          <HeaderOptions
-            avatar="true"
-            title={user?.displayName}
-            onClick={logoutFunc}
-          />
+          <>
+            <div className="headerOption">
+              <Menu />
+            </div>
+          </>
         ) : (
           <Button
             variant="outlined"
@@ -67,7 +58,7 @@ function Header() {
         )}
       </div>
       <div className="header__hamburger">
-        <HeaderOptions Icon={Menu} />
+        <HeaderOptions Icon={MenuIcon} />
       </div>
     </div>
   );
