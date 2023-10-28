@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
+
+## Note
+Add your Firebase keys in `.env` file and then add it to the `firebase.jsx` file
+
 ## Available Scripts
 
 In the project directory, you can run:
